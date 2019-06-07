@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'JJCPickerView_Example' do
+  pod 'JJCPickerView', :path => '../'
+
+  target 'JJCPickerView_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

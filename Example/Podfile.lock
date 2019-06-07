@@ -1,0 +1,16 @@
+PODS:
+  - JJCPickerView (0.1.0)
+
+DEPENDENCIES:
+  - JJCPickerView (from `../`)
+
+EXTERNAL SOURCES:
+  JJCPickerView:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  JJCPickerView: 32d1dbee794a31fccc50c1f8daf9912afdd44a92
+
+PODFILE CHECKSUM: a274e74722e733695feb4aa1b9469667ca1fe1b1
+
+COCOAPODS: 1.7.1
