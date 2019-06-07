@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="JJCPickerView" customModule="JJCPickerView">
+            <connections>
+                <outlet property="contentView" destination="wBo-p9-Wp9" id="qeI-F8-h3a"/>
+                <outlet property="pickerView" destination="ON8-Of-m5O" id="KtG-5d-s1j"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="wBo-p9-Wp9">
+            <rect key="frame" x="0.0" y="0.0" width="512" height="317"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ON8-Of-m5O">
+                    <rect key="frame" x="0.0" y="50" width="512" height="267"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="Q2i-Eg-Ynu"/>
+                        <outlet property="delegate" destination="-1" id="fkR-MT-rLE"/>
+                    </connections>
+                </pickerView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fha-el-vlZ">
+                    <rect key="frame" x="432" y="10" width="70" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="nkM-03-K55"/>
+                        <constraint firstAttribute="width" constant="70" id="yB9-qg-lBV"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                    <state key="normal" title="Done">
+                        <color key="titleColor" red="0.24313725489999999" green="0.59607843140000005" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="onDoneButtonSelection:" destination="-1" eventType="touchUpInside" id="qlW-ht-XLv"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LFW-zX-GdQ">
+                    <rect key="frame" x="10" y="10" width="70" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="QvT-2C-QCu"/>
+                        <constraint firstAttribute="width" constant="70" id="fci-8u-LD5"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="Cancel">
+                        <color key="titleColor" red="0.24313725489999999" green="0.59607843140000005" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="onCancelButtonSelection:" destination="-1" eventType="touchUpInside" id="vgb-ZM-zpv"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="ON8-Of-m5O" firstAttribute="leading" secondItem="wBo-p9-Wp9" secondAttribute="leading" id="LIY-Qy-b8X"/>
+                <constraint firstItem="LFW-zX-GdQ" firstAttribute="centerY" secondItem="fha-el-vlZ" secondAttribute="centerY" id="Su1-w1-egq"/>
+                <constraint firstItem="LFW-zX-GdQ" firstAttribute="leading" secondItem="wBo-p9-Wp9" secondAttribute="leading" constant="10" id="azY-de-8jC"/>
+                <constraint firstAttribute="bottom" secondItem="ON8-Of-m5O" secondAttribute="bottom" id="fmT-JK-Aa5"/>
+                <constraint firstAttribute="trailing" secondItem="ON8-Of-m5O" secondAttribute="trailing" id="iNV-b0-WrC"/>
+                <constraint firstItem="fha-el-vlZ" firstAttribute="top" secondItem="wBo-p9-Wp9" secondAttribute="top" constant="10" id="jSM-e7-beU"/>
+                <constraint firstItem="ON8-Of-m5O" firstAttribute="top" secondItem="fha-el-vlZ" secondAttribute="bottom" id="laI-ag-bgO"/>
+                <constraint firstAttribute="trailing" secondItem="fha-el-vlZ" secondAttribute="trailing" constant="10" id="ux7-tO-bvE"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="27.536231884057973" y="-154.35267857142856"/>
+        </view>
+    </objects>
+</document>

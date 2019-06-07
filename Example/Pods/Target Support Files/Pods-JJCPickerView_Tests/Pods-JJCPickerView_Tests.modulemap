@@ -1,0 +1,6 @@
+framework module Pods_JJCPickerView_Tests {
+  umbrella header "Pods-JJCPickerView_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

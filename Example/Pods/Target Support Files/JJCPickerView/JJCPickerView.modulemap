@@ -1,0 +1,6 @@
+framework module JJCPickerView {
+  umbrella header "JJCPickerView-umbrella.h"
+
+  export *
+  module * { export * }
+}
