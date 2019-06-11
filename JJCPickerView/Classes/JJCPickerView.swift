@@ -25,14 +25,34 @@ public class JJCPickerView: UIView {
     
     public weak var delegate: JJCPickerViewDelegate?
     
-    public var items: [String]! = []
+    public var distanceFromBottom: CGFloat = 0
+    public var emptyListText: String = "No items set" {
+        didSet {
+            self.emptyListLabel.text = emptyListText
+        }
+    }
+    public var items: [String]! = [] {
+        didSet {
+            let hasItems = items.count > 0
+            
+            self.doneButton.isHidden = !hasItems
+            self.emptyListLabel.isHidden = hasItems
+            self.pickerView.isHidden = !hasItems
+        }
+    }
     
-    private var selectedItem: String?
-    private var parentView: UIView! = UIView()
-    private var bgView: UIView! = UIView()
+    fileprivate var bgView: UIView! = UIView()
+    fileprivate var selectedItem: String?
+    fileprivate var parentView: UIView! = UIView()
     
-    @IBOutlet var contentView: UIView!
-    @IBOutlet weak var pickerView: UIPickerView!
+    @IBOutlet fileprivate var contentView: UIView!
+    @IBOutlet fileprivate weak var emptyListLabel: UILabel!
+    @IBOutlet fileprivate weak var pickerView: UIPickerView! {
+        didSet {
+            pickerView.showsSelectionIndicator = true
+        }
+    }
+    @IBOutlet fileprivate weak var doneButton: UIButton!
     
     // MARK: Actions
     
@@ -41,10 +61,10 @@ public class JJCPickerView: UIView {
     }
     
     @IBAction func onDoneButtonSelection(_ sender: Any) {
-        if let delegate = self.delegate, let item = self.selectedItem {
-            delegate.onItemSelect(item)
-            self.dismissPicker()
-        }
+        let item = self.selectedItem ?? self.items.first!
+        
+        self.delegate?.onItemSelect(item)
+        self.dismissPicker()
     }
     
     // MARK: Lifecycle
@@ -70,9 +90,12 @@ public class JJCPickerView: UIView {
         
         self.addSubview(self.contentView)
         
+        self.clipsToBounds = false
+        
         self.contentView.frame = self.bounds
         self.contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.clipsToBounds = false
+        
+        self.emptyListLabel.text = self.emptyListText
         
         self.setupBGView()
     }
@@ -99,7 +122,7 @@ public class JJCPickerView: UIView {
     
     private func togglePicker(direction: Direction) {
         let size = UIScreen.main.bounds.size
-        let height = self.contentView.frame.size.height
+        let height = self.contentView.frame.size.height + self.distanceFromBottom
         let width = self.contentView.frame.size.width
         let x = self.contentView.frame.origin.x
         let y = direction == .up ? size.height - height : size.height + height
