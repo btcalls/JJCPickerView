@@ -32,7 +32,8 @@ class ViewController: UIViewController {
         
         self.pickerView = JJCPickerView(frame: frame)
         self.pickerView.delegate = self
-        self.pickerView.items = Array(0...15).map { "Item \($0)" }
+        
+        self.pickerView.items = Array(0...15).map { JJCPickerItem(title: "Item \($0)", value: "\($0)") }
         
         self.view.addSubview(self.pickerView)
     }
@@ -46,8 +47,8 @@ class ViewController: UIViewController {
 
 extension ViewController: JJCPickerViewDelegate {
     
-    func onItemSelect(_ item: String) {
-        self.pickerButton.setTitle(item, for: .normal)
+    func onItemSelect(_ item: JJCPickerItem) {
+        self.pickerButton.setTitle(item.title, for: .normal)
     }
     
 }

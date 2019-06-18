@@ -15,8 +15,18 @@ private enum Direction {
 
 public protocol JJCPickerViewDelegate: class {
     
-    func onItemSelect(_ item:  String)
+    func onItemSelect(_ item:  JJCPickerItem)
     
+}
+
+public struct JJCPickerItem {
+    public var title: String
+    public var value: String
+    
+    public init(title: String, value: String) {
+        self.title = title
+        self.value = value
+    }
 }
 
 public class JJCPickerView: UIView {
@@ -31,7 +41,7 @@ public class JJCPickerView: UIView {
             self.emptyListLabel.text = emptyListText
         }
     }
-    public var items: [String]! = [] {
+    public var items: [JJCPickerItem]! = [] {
         didSet {
             let hasItems = items.count > 0
             
@@ -42,7 +52,7 @@ public class JJCPickerView: UIView {
     }
     
     fileprivate var bgView: UIView! = UIView()
-    fileprivate var selectedItem: String?
+    fileprivate var selectedItem: JJCPickerItem?
     fileprivate var parentView: UIView! = UIView()
     
     @IBOutlet fileprivate var contentView: UIView!
@@ -181,7 +191,7 @@ extension JJCPickerView: UIPickerViewDelegate {
         
         label.isOpaque = true
         label.numberOfLines = 2
-        label.text = self.items[row]
+        label.text = self.items[row].title
         label.textAlignment = .center
         
         return label
