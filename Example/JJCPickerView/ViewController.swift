@@ -33,6 +33,7 @@ class ViewController: UIViewController {
         
         self.pickerView = JJCPickerView(frame: frame)
         self.pickerView.delegate = self
+        self.pickerView.tintColor = .red
         
         self.pickerView.items = Array(0...15).map { JJCPickerItem(title: "Item \($0)", value: "\($0)") }
         

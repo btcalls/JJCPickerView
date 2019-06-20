@@ -119,6 +119,10 @@ public class JJCPickerView: UIView {
     
     // MARK: Public Methods
     
+    public override func tintColorDidChange() {
+        self.doneButton.tintColor = self.tintColor
+    }
+    
     public func dismissPicker() {
         self.togglePicker(direction: .down)
     }
@@ -136,7 +140,7 @@ public class JJCPickerView: UIView {
         let width = self.contentView.frame.size.width
         let x = self.contentView.frame.origin.x
         let y = direction == .up ? size.height - height : size.height + height
-        
+                
         if direction == .up {
             self.bgView.alpha = 0
             

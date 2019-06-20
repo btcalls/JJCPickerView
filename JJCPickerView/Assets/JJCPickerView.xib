@@ -44,9 +44,7 @@
                         <constraint firstAttribute="width" constant="70" id="yB9-qg-lBV"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                    <state key="normal" title="Done">
-                        <color key="titleColor" red="0.24313725489999999" green="0.59607843140000005" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
+                    <state key="normal" title="Done"/>
                     <connections>
                         <action selector="onDoneButtonSelection:" destination="-1" eventType="touchUpInside" id="qlW-ht-XLv"/>
                     </connections>
@@ -59,9 +57,7 @@
                         <constraint firstAttribute="width" constant="70" id="fci-8u-LD5"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <state key="normal" title="Cancel">
-                        <color key="titleColor" red="0.24313725489999999" green="0.59607843140000005" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
+                    <state key="normal" title="Cancel"/>
                     <connections>
                         <action selector="onCancelButtonSelection:" destination="-1" eventType="touchUpInside" id="vgb-ZM-zpv"/>
                     </connections>
