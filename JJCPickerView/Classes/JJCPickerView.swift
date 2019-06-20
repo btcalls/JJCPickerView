@@ -131,6 +131,12 @@ public class JJCPickerView: UIView {
         self.parentView = view
         self.selectedItem = item
         
+        if let item = self.selectedItem {
+            let index = self.items.firstIndex { $0.value == item.value }
+            
+            self.pickerView.selectRow(index!, inComponent: 0, animated: false)
+        }
+        
         self.togglePicker(direction: .up)
     }
     
@@ -158,12 +164,6 @@ public class JJCPickerView: UIView {
         }) { (completed) in
             if direction == .down {
                 self.bgView.removeFromSuperview()
-            } else {
-                if let item = self.selectedItem {
-                    let index = self.items.firstIndex { $0.value == item.value }
-                    
-                    self.pickerView.selectRow(index!, inComponent: 0, animated: false)
-                }
             }
         }
     }
