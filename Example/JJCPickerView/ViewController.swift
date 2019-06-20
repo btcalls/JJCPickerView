@@ -13,11 +13,12 @@ import JJCPickerView
 class ViewController: UIViewController {
     
     private var pickerView = JJCPickerView()
+    private var selectedItem: JJCPickerItem?
     
     @IBOutlet weak var pickerButton: UIButton!
     
     @IBAction func onButtonClick(_ sender: Any) {
-        self.pickerView.showPicker(at: self.view)
+        self.pickerView.showPicker(at: self.view, withSelectedItem: self.selectedItem)
     }
     
     override func viewDidLoad() {
@@ -48,6 +49,8 @@ class ViewController: UIViewController {
 extension ViewController: JJCPickerViewDelegate {
     
     func onItemSelect(_ item: JJCPickerItem) {
+        self.selectedItem = item
+        
         self.pickerButton.setTitle(item.title, for: .normal)
     }
     

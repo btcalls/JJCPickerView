@@ -50,10 +50,9 @@ public class JJCPickerView: UIView {
             self.pickerView.isHidden = !hasItems
         }
     }
-    
     fileprivate var bgView: UIView! = UIView()
-    fileprivate var selectedItem: JJCPickerItem?
     fileprivate var parentView: UIView! = UIView()
+    fileprivate var selectedItem: JJCPickerItem?
     
     @IBOutlet fileprivate var contentView: UIView!
     @IBOutlet fileprivate weak var emptyListLabel: UILabel!
@@ -124,8 +123,9 @@ public class JJCPickerView: UIView {
         self.togglePicker(direction: .down)
     }
     
-    public func showPicker(at view: UIView) {
+    public func showPicker(at view: UIView, withSelectedItem item: JJCPickerItem? = nil) {
         self.parentView = view
+        self.selectedItem = item
         
         self.togglePicker(direction: .up)
     }
@@ -154,6 +154,12 @@ public class JJCPickerView: UIView {
         }) { (completed) in
             if direction == .down {
                 self.bgView.removeFromSuperview()
+            } else {
+                if let item = self.selectedItem {
+                    let index = self.items.firstIndex { $0.value == item.value }
+                    
+                    self.pickerView.selectRow(index!, inComponent: 0, animated: false)
+                }
             }
         }
     }
