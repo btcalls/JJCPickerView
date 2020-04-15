@@ -32,7 +32,9 @@ public struct JJCPickerItem {
 public class JJCPickerView: UIView {
     
     // MARK: Properties
-    
+
+    fileprivate let rowHeight: CGFloat = 50
+
     public weak var delegate: JJCPickerViewDelegate?
     
     public var distanceFromBottom: CGFloat = 0
@@ -50,10 +52,18 @@ public class JJCPickerView: UIView {
             self.pickerView.isHidden = !hasItems
         }
     }
+
     fileprivate var bgView: UIView! = UIView()
+    fileprivate var isDarkMode: Bool {
+        if #available(iOS 12.0, *) {
+            return self.traitCollection.userInterfaceStyle == .dark
+        }
+
+        return false
+    }
     fileprivate var parentView: UIView! = UIView()
     fileprivate var selectedItem: JJCPickerItem?
-    
+
     @IBOutlet fileprivate var contentView: UIView!
     @IBOutlet fileprivate weak var emptyListLabel: UILabel!
     @IBOutlet fileprivate weak var pickerView: UIPickerView! {
@@ -80,6 +90,7 @@ public class JJCPickerView: UIView {
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
+
         self.commonInit()
     }
     
@@ -88,13 +99,18 @@ public class JJCPickerView: UIView {
         
         self.commonInit()
     }
-    
+
     // MARK: Private Methods
+
+    private func adaptUIToSystemTheme() {
+        self.contentView.backgroundColor = self.isDarkMode ? .darkGray : .white
+        self.emptyListLabel.textColor = self.isDarkMode ? .white : .darkText
+    }
     
     private func commonInit() {
         let name = String(describing: JJCPickerView.self)
         let bundle = Bundle(for: JJCPickerView.self)
-        
+
         bundle.loadNibNamed(name, owner: self, options: nil)
         
         self.addSubview(self.contentView)
@@ -105,7 +121,7 @@ public class JJCPickerView: UIView {
         self.contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         self.emptyListLabel.text = self.emptyListText
-        
+
         self.setupBGView()
     }
     
@@ -113,10 +129,9 @@ public class JJCPickerView: UIView {
         let size = UIScreen.main.bounds.size
         
         self.bgView = UIView(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-        
         self.bgView.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.5)
     }
-    
+
     // MARK: Public Methods
     
     public override func tintColorDidChange() {
@@ -130,7 +145,7 @@ public class JJCPickerView: UIView {
     public func showPicker(at view: UIView, withSelectedItem item: JJCPickerItem? = nil) {
         self.parentView = view
         self.selectedItem = item
-        
+
         if let item = self.selectedItem {
             let index = self.items.firstIndex { $0.value == item.value }
             
@@ -155,12 +170,7 @@ public class JJCPickerView: UIView {
         
         UIView.animate(withDuration: 0.3, animations: {
             self.frame = CGRect(x: x, y: y, width: width, height: height)
-            
-            if direction == .up {
-                self.bgView.alpha = 1
-            } else {
-                self.bgView.alpha = 0
-            }
+            self.bgView.alpha = direction == .up ? 1 : 0
         }) { (completed) in
             if direction == .down {
                 self.bgView.removeFromSuperview()
@@ -183,27 +193,39 @@ extension JJCPickerView: UIPickerViewDataSource {
 }
 
 extension JJCPickerView: UIPickerViewDelegate {
-    
-    public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+
+    public func pickerView(_ pickerView: UIPickerView,
+                           didSelectRow row: Int,
+                           inComponent component: Int) {
         self.selectedItem = self.items[row]
     }
     
-    public func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return 50
+    public func pickerView(_ pickerView: UIPickerView,
+                           rowHeightForComponent component: Int) -> CGFloat {
+        return self.rowHeight
     }
     
-    public func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
-        
+    public func pickerView(_ pickerView: UIPickerView,
+                           viewForRow row: Int,
+                           forComponent component: Int,
+                           reusing view: UIView?) -> UIView {
+        let frame = CGRect(x: 0, y: 0, width: 0, height: self.rowHeight)
+        let label = view as? UILabel ?? UILabel(frame: frame)
+
         if #available(iOS 8.2, *) {
             label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         }
-        
+
+        label.backgroundColor = UIColor.clear
         label.isOpaque = true
         label.numberOfLines = 2
         label.text = self.items[row].title
         label.textAlignment = .center
-        
+        label.textColor = self.isDarkMode ? .white : .darkText
+
+        // App-wide
+        self.adaptUIToSystemTheme()
+
         return label
     }
     
